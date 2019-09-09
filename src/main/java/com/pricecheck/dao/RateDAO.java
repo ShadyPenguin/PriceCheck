@@ -1,5 +1,6 @@
 package com.pricecheck.dao;
 
+import com.pricecheck.model.Rate;
 import com.pricecheck.model.Rates;
 
 /**
@@ -17,4 +18,9 @@ public interface RateDAO {
    * Overwrites stored {@link Rates} with passed rates
    */
   void update(Rates rates);
+
+  /**
+   * Search for a {@link Rate} encapsulating the given time range
+   */
+  String get(String start, String end);
 }
