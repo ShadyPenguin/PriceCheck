@@ -10,7 +10,7 @@
     <display-name>Price Check REST API</display-name>
 
     <listener>
-        <listener-class>com.pricecheck.Main</listener-class>
+        <listener-class>com.pricecheck.PriceCheck</listener-class>
     </listener>
 
     <filter>
