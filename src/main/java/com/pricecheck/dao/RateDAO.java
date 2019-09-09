@@ -2,6 +2,7 @@ package com.pricecheck.dao;
 
 import com.pricecheck.model.Rate;
 import com.pricecheck.model.Rates;
+import org.joda.time.DateTime;
 
 /**
  * Interface for Rate DAO layer
@@ -22,5 +23,5 @@ public interface RateDAO {
   /**
    * Search for a {@link Rate} encapsulating the given time range
    */
-  String get(String start, String end);
+  String get(DateTime start, DateTime end);
 }
