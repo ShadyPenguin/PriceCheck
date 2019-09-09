@@ -9,7 +9,11 @@ import com.pricecheck.model.Rates;
  * @since 09/2019
  */
 public interface RateService {
+  /**
+   * Returns all {@link Rate}s stored in memory
+   */
   Rates getAll();
+
   /**
    * Ingest {@link Rates} and update internal cache with new rates
    */
