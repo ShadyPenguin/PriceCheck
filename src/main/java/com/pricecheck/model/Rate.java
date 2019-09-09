@@ -1,5 +1,10 @@
 package com.pricecheck.model;
 
+/**
+ * Raw rate data fed into the PriceCheck system
+ * @author Jake Sikora
+ * @since 09/2019
+ */
 public class Rate {
   private String days;
   private String times;

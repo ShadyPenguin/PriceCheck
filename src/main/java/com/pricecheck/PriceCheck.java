@@ -17,12 +17,20 @@ import com.sun.jersey.guice.spi.container.servlet.GuiceContainer;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Setting up all servlets and Guice bindings for the application
+ * @author Jake Sikora
+ * @since 09/2019
+ */
 public class PriceCheck extends GuiceServletContextListener {
 
   @Override
   protected Injector getInjector() {
     return Guice.createInjector(
         new ServletModule() {
+          /**
+           * Configuring servlets
+           */
           @Override
           protected void configureServlets() {
             ResourceConfig resourceConfig = new PackagesResourceConfig("com.pricecheck.service");
@@ -32,6 +40,9 @@ public class PriceCheck extends GuiceServletContextListener {
             serve("/*").with(GuiceContainer.class);
           }
         }, new AbstractModule() {
+          /**
+           * Setting up Guice bindings
+           */
           @Override
           protected void configure() {
             bind(RateService.class).to(RateServiceImpl.class);
@@ -40,6 +51,9 @@ public class PriceCheck extends GuiceServletContextListener {
             bind(ObjectMapper.class).in(Scopes.SINGLETON);
           }
 
+          /**
+           * Providing the system with a known set of {@link Rates} that would normally be supplied from a database
+           */
           @Provides
           private Rates providesRateCache() throws IOException {
             File f = new File(getClass().getClassLoader().getResource("data.json").getFile());

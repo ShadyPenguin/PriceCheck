@@ -2,14 +2,19 @@ package com.pricecheck.dao;
 
 import com.pricecheck.model.Rates;
 
+/**
+ * Interface for Rate DAO layer
+ * @author Jake Sikora
+ * @since 09/2019
+ */
 public interface RateDAO {
   /**
-   * @return cached {@link Rates}
+   * @return cached in-memory {@link Rates}
    */
   Rates getAll();
 
   /**
-   * overwrites stored {@link Rates} with passed rates
+   * Overwrites stored {@link Rates} with passed rates
    */
   void update(Rates rates);
 }

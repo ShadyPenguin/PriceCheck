@@ -2,6 +2,11 @@ package com.pricecheck.model;
 
 import java.util.List;
 
+/**
+ * Container class for all {@link Rate}s
+ * @author Jake Sikora
+ * @since 09/2019
+ */
 public class Rates {
   private List<Rate> rates;
 
