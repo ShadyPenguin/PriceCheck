@@ -9,6 +9,7 @@ import com.pricecheck.model.Rates;
  * @since 09/2019
  */
 public interface RateService {
+  Rates getAll();
   /**
    * Ingest {@link Rates} and update internal cache with new rates
    */
@@ -17,5 +18,5 @@ public interface RateService {
   /**
    * Query internal {@link Rates} cache for given time range to find the {@link Rate#getPrice()}
    */
-  String findRate(String start, String end);
+  String get(String start, String end);
 }

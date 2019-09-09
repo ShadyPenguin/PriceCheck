@@ -4,6 +4,7 @@ import com.pricecheck.dao.RateDAO;
 import com.pricecheck.model.Rate;
 import com.pricecheck.model.Rates;
 import com.pricecheck.service.RateService;
+import org.joda.time.DateTime;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -28,6 +29,16 @@ public class RateServiceImpl implements RateService {
   }
 
   /**
+   * Return all rates stored in memory
+   */
+  @GET
+  @Path("/all")
+  @Override
+  public Rates getAll() {
+    return rateDAO.getAll();
+  }
+
+  /**
    * Ingest {@link Rates} and update internal cache with new rates
    * @param rates Object containing all {@link Rate}s
    */
@@ -45,7 +56,7 @@ public class RateServiceImpl implements RateService {
    */
   @GET
   @Override
-  public String findRate(@QueryParam("start") String start, @QueryParam("end") String end) {
-    return String.valueOf(rateDAO.getAll().getRates().get(0).getPrice());
+  public String get(@QueryParam("start") String start, @QueryParam("end") String end) {
+    return rateDAO.get(DateTime.parse(start), DateTime.parse(end));
   }
 }

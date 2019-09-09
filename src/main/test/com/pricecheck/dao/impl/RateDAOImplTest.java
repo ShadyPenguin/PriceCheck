@@ -1,5 +1,6 @@
 package com.pricecheck.dao.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pricecheck.dao.RateDAO;
 import com.pricecheck.model.Rate;
 import com.pricecheck.model.Rates;
@@ -7,6 +8,8 @@ import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Collections;
 
 import static org.junit.Assert.assertEquals;
@@ -70,5 +73,21 @@ public class RateDAOImplTest {
   @Test
   public void get_success() {
     assertEquals("100", rateDAO.get(START, END));
+  }
+
+  @Test
+  public void get_examples() throws IOException {
+    rateDAO.update(new ObjectMapper().readValue(new File(getClass().getClassLoader().getResource("data.json").getFile()), Rates.class));
+    DateTime start = DateTime.parse("2015-07-01T07:00:00-05:00");
+    DateTime end = DateTime.parse("2015-07-01T12:00:00-05:00");
+    assertEquals("1750", rateDAO.get(start, end));
+
+    DateTime start2 = DateTime.parse("2015-07-04T15:00:00+00:00");
+    DateTime end2 = DateTime.parse("2015-07-04T20:00:00+00:00");
+    assertEquals("2000", rateDAO.get(start2, end2));
+
+    DateTime start3 = DateTime.parse("2015-07-04T07:00:00+05:00");
+    DateTime end3 = DateTime.parse("2015-07-04T20:00:00+05:00");
+    assertEquals(UNAVAILABLE, rateDAO.get(start3, end3));
   }
 }

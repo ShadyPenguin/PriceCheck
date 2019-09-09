@@ -60,9 +60,11 @@ public class RateDAOImpl implements RateDAO {
       List<Rate> availableRates = rates.getRates().stream()
           // Filter Rates with the correct day
           .filter(r -> r.getDays().contains(start.withZone(DateTimeZone.forID(r.getTz())).toString(DAY).toLowerCase()))
-          // Filter Rates with lower bound correct
+          // Filter Rates with correct lower bound
           .filter(r -> parseInt(r.getTimes().split("-")[0]) <= parseInt(start.withZone(DateTimeZone.forID(r.getTz())).toString(TIME)))
-          // Filter Rates with upperr bound correct
+          .filter(r -> parseInt(r.getTimes().split("-")[1]) > parseInt(start.withZone(DateTimeZone.forID(r.getTz())).toString(TIME)))
+          // Filter Rates with correct upper bound
+          .filter(r -> parseInt(r.getTimes().split("-")[0]) < parseInt(end.withZone(DateTimeZone.forID(r.getTz())).toString(TIME)))
           .filter(r -> parseInt(r.getTimes().split("-")[1]) >= parseInt(end.withZone(DateTimeZone.forID(r.getTz())).toString(TIME)))
           .collect(Collectors.toList());
       if (availableRates.size() == 1) {
